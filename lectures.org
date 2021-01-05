@@ -46,9 +46,10 @@ Similarly, /estimation error/ can be defined as the smallest possible estimation
 \[
     m_H(\epsilon, \delta) = \min_{L} m_L(\epsilon, \delta)
 \]
-
 *Theorem 1.* /Suppose $h$ is a function from $X$ to $\{0,1\}$, then:/
 \[
     P^m\{|error_z(h)-error_P(h)|\geq\epsilon\}\leq 2\exp(-2\epsilon^2m)
 \]
 *Proof*: The equation above has a form of Hoeffding's Inequality: $P\{|\bar{X}-\mathop{\mathbb{E}}[\bar{X}]|\geq t\}\leq\exp(-2mt^2)$ , where $X=\{X_1,\ldots,X_m\}$ is independent random variables bounded by $[0,1]$ and $t>0$, and $m$ is still sample size. In our case $X_i=1$ on $(x_i,y_i)\in Z$ if and only if $h(x_i)\neq y$. It is easy to see that $error_z(h)=\frac{1}{m}(X_1+X_2+\ldots+X_m)=\bar{X}$. Since $error_P(h)= P\{h(x)\neq y\}$, then $\mathop{\mathbb{E}}[\bar{X}]=P\{h(x)\neq y\}=error_P(h)$.
+
+This theorem is not sufficient to prove that $L$ learns. This theorem implies that the true error $error_P(h)$ is approximately minimazing with minimization of the estimation error $error_z(h)$.
