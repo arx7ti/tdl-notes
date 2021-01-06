@@ -46,10 +46,29 @@ Similarly, /estimation error/ can be defined as the smallest possible estimation
 \[
     m_H(\epsilon, \delta) = \min_{L} m_L(\epsilon, \delta)
 \]
+
 *Theorem 1.* /Suppose $h$ is a function from $X$ to $\{0,1\}$, then:/
 \[
-    P^m\{|error_z(h)-error_P(h)|\geq\epsilon\}\leq 2\exp(-2\epsilon^2m)
+    P^m\{z\in Z^m : |error_z(h)-error_P(h)|\geq\epsilon\}\leq 2\exp(-2\epsilon^2m)
 \]
-*Proof*: The equation above has a form of Hoeffding's Inequality: $P\{|\bar{X}-\mathop{\mathbb{E}}[\bar{X}]|\geq t\}\leq\exp(-2mt^2)$ , where $X=\{X_1,\ldots,X_m\}$ is independent random variables bounded by $[0,1]$ and $t>0$, and $m$ is still sample size. In our case $X_i=1$ on $(x_i,y_i)\in Z$ if and only if $h(x_i)\neq y$. It is easy to see that $error_z(h)=\frac{1}{m}(X_1+X_2+\ldots+X_m)=\bar{X}$. Since $error_P(h)= P\{h(x)\neq y\}$, then $\mathop{\mathbb{E}}[\bar{X}]=P\{h(x)\neq y\}=error_P(h)$.
+*Proof*: The equation above has a form of Hoeffding's Inequality: $P\{|\bar{X}-\mathop{\mathbb{E}}[\bar{X}]|\geq t\}\leq\exp(-2mt^2)$ , where $X=\{X_1,\ldots,X_m\}$ is independent random variables bounded by $[0,1]$ and $t>0$, and $m$ is still sample size. In our case $X_i=1$ on $(x_i,y_i)\in Z$ if and only if $h(x_i)\neq y$. It is easy to see that $error_z(h)=\frac{1}{m}(X_1+X_2+\ldots+X_m)=\bar{X}$. As for true error $P\{h(x)\neq y\}=error_P(h)=\mathop{\mathbb{E}}[\bar{X}]$.
 
 This theorem is not sufficient to prove that $L$ learns. This theorem implies that the true error $error_P(h)$ is approximately minimazing with minimization of the estimation error $error_z(h)$.
+
+*Theorem 2.* /Suppose that $H$ is a finite set of functions map from a set $X$ to $\{0,1\}$. Then:/
+\[
+    P^m\{\max_{h\in H} |error_z(h) - error_P(h)|\geq\epsilon\} \leq 2|H|\exp(-2\epsilon^2m)
+\]
+*Proof*. Let $A(h)$ be a simple random event corresponding to $|error_z(h)-error_P(h)|\geq\epsilon$. Thus, following holds:
+\[
+    P^m\{\max_{h\in H}|error_z(h)-error_P(h)|\geq\epsilon\}=P^m(\bigcup_{h\in H}A(h))
+\]
+Applying /union bound/ we will have: 
+\[
+    P^m(\bigcup_{h\in H}A(h))\leq\sum_{h\in H}P^m(A(h))
+\]
+Substitying $A(h)=\{z\in Z^m : |error_z(h)-error_P(h)|\geq\epsilon\}$ and using theorem 1 we will have:
+\[
+    \sum_{h\in H} P\{z\in Z^m : |error_z(h)-error_p(h)|\geq\epsilon\}\leq |H|(2\exp(-2\epsilon^2m))
+\]
+
