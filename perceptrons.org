@@ -1,0 +1,8 @@
+#+TITLE: Lectures
+
+* Rosenblatt's perceptron 
+** Introduction
+/Recall/: for an input $x\in\mathop{\mathbb{R}}^n$, the parametrized function describing the mapping computed by a perceptron is:
+\[
+    F(\omega,x)=F((\omega_1,\omega_2,\ldots,\omega_n,\theta),(x_1,x_2,\ldots,x_n))=sgn(\sum_{i=1}^n \omega_i x_i - \theta)
+\]

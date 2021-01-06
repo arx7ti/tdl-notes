@@ -72,3 +72,17 @@ Substitying $A(h)=\{z\in Z^m : |error_z(h)-error_P(h)|\geq\epsilon\}$ and using 
     \sum_{h\in H} P\{z\in Z^m : |error_z(h)-error_p(h)|\geq\epsilon\}\leq |H|(2\exp(-2\epsilon^2m))
 \]
 
+*Theorem 3*. /Suppose that $H$ is a finite set of functions from a set $X$ to $\{0,1\}$. Let $L : \bigcup_{m=1}^{\infty}Z^m\rightarrow H$ be such that for any $m$ and any $z\in Z^m$,/
+\[
+    error_z(L(z)) = \min_{h\in H}error_z(h)
+\]
+/Then $L$ is a learning algorithm for $H$, with estimation error/:
+\[
+    \epsilon_L(m,\delta)\leq\sqrt{\frac{2}{m}\ln(\frac{2|H|}{\delta})}
+\]
+/, and sample complexity:/
+\[
+    m_L(\epsilon, \delta) \leq \frac{2}{\epsilon^2}\ln(\frac{2|H|}{\delta})
+\]
+*Proof:*. /TODO./
+
