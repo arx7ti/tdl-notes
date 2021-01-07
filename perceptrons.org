@@ -18,40 +18,40 @@ This perceptron can only classify patterns which are /linearly seprable/.
 
 *Theorem 1.* /Suppose $C_1\bigcup C_2=C$ are linearly separable classes over the training set $z\in Z^T$ with the assumption $z_t=\{\vv{x_t}, y_t\in C_1\}$, and perceptron's response $r_t$ with mistake $e_t=r_t-y_t< 0$ can be corrected by applying the learning rule to its current state $\vv{\omega}\in\vv{\Omega}^T$/: 
 \[
-    \vv{\omega_t}=\vv{\omega_{t-1}} + e_{t-1}\vv{x_{t-1}}
+    \vv{\omega_t}=\vv{\omega_{t-1}} + e_t\vv{x_t}
 \]
 /Then perceptron's error correction algorithm converges in $k$ number of steps with following assumptions: training input is bounded by Euclidean norm $\norm{\vv{x_t}}\leq R$ and $e_t\vv{\omega_*^T x_t}\geq\gamma$ for $t=1..T$, where $\gamma > 0$. Initial state $\vv{\omega_0}=0$. Note, that $\gamma$ uses to be sure that some example is classified correctly./
 
 *Proof:* Multiplying both sides of learning rule equation by some optimal $\vv{\omega_*^T}$ we will have:
 \[
-    \vv{\omega_*^T\omega_k} = \vv{\omega_*^T\omega_{k-1}} + e_{t-1}\vv{\omega_*^Tx_{t-1}}\geq\vv{\omega_*^T\omega_{k-1}} + \gamma 
+    \vv{\omega_*^T\omega_k} = \vv{\omega_*^T\omega_{k-1}} + e_t\vv{\omega_*^Tx_t}\geq\vv{\omega_*^T\omega_{k-1}} + \gamma 
 \]
 Now we can expand equation above for $k$ steps and keep in mind $\vv{\omega_0}=0$ at $k=0$ we will get:
 \[
-    \vv{\omega_*^T\omega_k}\geq\vv{\omega_*^T}(\vv{\omega_{k-2}}+e_{t-2}\vv{x_{t-2}}) + \gamma\geq\vv{\omega_*^T}(\vv{\omega_{k-3}}+e_{t-3}\vv{x_{t-3}}) + 2\gamma\geq\ldots
+    \vv{\omega_*^T\omega_k}\geq\vv{\omega_*^T}(\vv{\omega_{k-2}}+e_t\vv{x_t}) + \gamma\geq\vv{\omega_*^T}(\vv{\omega_{k-3}}+e_t\vv{x_t}) + 2\gamma\geq\ldots
 \]
 \[
-    \ldots\geq\vv{\omega_*^T}(\vv{\omega_0}+e_{t-k+1}x_{t-k+1})+(k-1)\gamma\geq k\gamma
+    \ldots\geq\vv{\omega_*^T}(\vv{\omega_0}+e_tx_t)+(k-1)\gamma\geq k\gamma
 \]
 Let's do one important step which results will be substituted to the final inequality. Suppose we have following Euclidean norm $\norm{\vv{\omega_k}}$ and, as it's known, for squared $L2$ norm the equality holds:
 \[
-    \norm{\vv{\omega_k}}^2=\norm{\vv{\omega_{k-1}}+e_{t-1}\vv{x_{t-1}}}^2 = \norm{\vv{\omega_{k-1}}}^2 + e_{t-1}^2\norm{\vv{x_{t-1}}}^2 + 2e_{t-1}\vv{\omega_{k-1}^Tx_{t-1}}
+    \norm{\vv{\omega_k}}^2=\norm{\vv{\omega_{k-1}}+e_t\vv{x_t}}^2 = \norm{\vv{\omega_{k-1}}}^2 + e_t^2\norm{\vv{x_t}}^2 + 2e_t\vv{\omega_{k-1}^Tx_t}
 \]
-Since $e_{t-1}=r_t-y_t=-2$ ($r_t=-1$ while the target $y_t=1$):
+Since $e_t=r_t-y_t=-2$ ($r_t=-1$ while the target $y_t=1$):
 \[
-    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_{t-1}}}^2 -4\vv{\omega_{k-1}^Tx_{t-1}}
+    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_t}}^2 -4\vv{\omega_{k-1}^Tx_t}
 \]
 There is no doubt that:
 \[
-    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_{t-1}}}^2 -4\vv{\omega_{k-1}^Tx_{t-1}}\leq\norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_{t-1}}}^2
+    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_t}}^2 -4\vv{\omega_{k-1}^Tx_t}\leq\norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_t}}^2
 \]
 Continuing for $k$ steps we will have:
 \[
-     \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_{t-1}}}^2 -4\vv{\omega_{k-1}^Tx_{t-1}}\leq2\sum_{j=1}^{k}\norm{\vv{x_{t-j}}}^2 
+     \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_t}}^2 -4\vv{\omega_{k-1}^Tx_t}\leq2 k\norm{\vv{x_t}}^2 
 \]
 Since $\norm{\vv{x_t}}\leq R$:
 \[
-    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_{t-1}}}^2 -4\vv{\omega_{k-1}^Tx_{t-1}}\leq 2kR^2
+    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_t}}^2 -4\vv{\omega_{k-1}^Tx_t}\leq 2kR^2
 \]
 From /Cauchy-Schwarz inequality/:
 \[
@@ -66,7 +66,7 @@ From /Cauchy-Schwarz inequality/:
 Substitying results obtained earlier:
 \[
     \frac{k^2\gamma^2}{\norm{\omega_*^T}^2}\leq\norm{\vv{\omega_k}}^2=
-    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_{t-1}}}^2 -4\vv{\omega_{k-1}^Tx_{t-1}}\leq 2kR^2
+    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_t}}^2 -4\vv{\omega_{k-1}^Tx_t}\leq 2kR^2
 \]
 Finally:
 \[
