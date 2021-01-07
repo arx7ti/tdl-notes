@@ -1,4 +1,6 @@
 #+TITLE: Lectures
+#+LATEX_HEADER: \newcommand{\vv}[1]{\boldsymbol{#1}}
+#+LATEX_HEADER: \usepackage{commath}
 
 * Rosenblatt's perceptron 
 ** Introduction
@@ -6,3 +8,33 @@
 \[
     F(\omega,x)=F((\omega_1,\omega_2,\ldots,\omega_n,\theta),(x_1,x_2,\ldots,x_n))=sgn(\sum_{i=1}^n \omega_i x_i - \theta)
 \]
+Or in the vector form:
+\[
+    F(\vv{\omega}, \vv{x}) = sgn(\vv{\omega^Tx})
+\]
+This perceptron can only classify patterns which are /linearly seprable/.
+
+*Theorem 1.* /Suppose $C_1\bigcup C_2=C$ are linearly separable classes over the training set $z\in Z^T$ with the assumption $z_t=\{\vv{x_t}, y_t\in C_1\}$, and perceptron's response $r_t$ with mistake $e_t=r_t-y_t\neq 0$ can be corrected by applying the learning rule to its current state $\vv{\omega}\in\vv{\Omega}^T$/: 
+\[
+    \vv{\omega_{t+1}}=\vv{\omega_t} + e_t\vv{x_t}
+\]
+/Then perceptron's error correction algorithm converges in $k$ number of steps with following assumptions: training input is bounded by Euclidean norm $\norm{\vv{x_t}}\leq R$ and \vv{\omega_k^T x_t}\geq\gamma for $t=1..T$, where $\gamma > 0$. Initial state $\vv{\omega_0}=0$. Note, that $\gamma$ uses to be sure that some example is classified correctly./
+
+*Proof:* Expand equation for learning rule at $t$ steps as:
+\[
+    \vv{\omega_{t+1}} = \vv{x_1} + \vv{x_2} + \ldots + \vv{x_t}
+\]
+Multiply each side by $\vv{\omega_k^T}$:
+\[
+    \vv{\omega_k^T\omega_{t+1}}=\vv{\omega_k^Tx_1} + \vv{\omega_k^Tx_2} + \ldots + \vv{\omega_k^Tx_t}
+\]
+From the assumption $\vv{\omega_k^Tx_t}\geq\gamma$:
+\[
+    \vv{\omega_k^T\omega_{t+1}}\geq k\gamma
+\]
+From /Cauchy-Schwarz inequality/:
+\[
+    \abs{\vv{\omega_k^T\omega_{t+1}}}  \leq  \norm{\vv{\omega_k^T}}  \cdot     \norm{\vv{\omega_{t+1}}}  
+\]
+
+
