@@ -76,5 +76,5 @@ Finally:
  \frac{k\gamma^2}{\norm{\vv{\omega_*^T}}^2}\leq 2R^2 
 \]
 \[
- k\leq 2R^2 \norm{\vv{\omega_*^T}}^2 \blacksquare
+ k\leq \frac{2R^2}{\gamma^2}\norm{\vv{\omega_*^T}}^2 \blacksquare
 \]
