@@ -1,7 +1,10 @@
 .DS_Store
 .idea
-*.log
-*.tex
+.envrc
 .auctex-auto/
 tmp/
 book.pdf
+*.log
+*.tex
+**/__pycache__/
+**/.ipynb_checkpoints/

@@ -16,7 +16,7 @@ Or in the vector form:
 \]
 This perceptron can only classify patterns which are /linearly seprable/.
 
-*Theorem 1.* /Suppose $C_1\bigcup C_2=C$ are linearly separable classes over the training set $z\in Z^T$ with the assumption $z_t=\{\vv{x_t}, y_t\in C_1\}$, and perceptron's response $r_t$ with mistake $e_t=r_t-y_t< 0$ can be corrected by applying the learning rule to its current state $\vv{\omega}\in\vv{\Omega}^T$/: 
+*Theorem 1.* /Suppose $C_1\bigcup C_2=C$ are linearly separable classes over the training set $z\in Z^T$ with the assumption $z_t=\{\vv{x_t}, y_t\in C_1\}$, and perceptron's response $r_t$ with mistake $e_t=y_t-r_t< 0$ can be corrected by applying the learning rule to its current state $\vv{\omega}\in\vv{\Omega}^T$/: 
 \[
     \vv{\omega_t}=\vv{\omega_{t-1}} + e_t\vv{x_t}
 \]
@@ -37,7 +37,7 @@ Let's do one important step which results will be substituted to the final inequ
 \[
     \norm{\vv{\omega_k}}^2=\norm{\vv{\omega_{k-1}}+e_k\vv{x_k}}^2 = \norm{\vv{\omega_{k-1}}}^2 + e_k^2\norm{\vv{x_k}}^2 + 2e_k\vv{\omega_{k-1}^Tx_k}
 \]
-Since $e_k=r_k-y_k=-2$ ($r_k=-1$ while the target $y_k=1$):
+Since $e_k=y_k-r_k=-2$ ($r_k=-1$ while the target $y_k=1$):
 \[
     \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_k}}^2 -4\vv{\omega_{k-1}^Tx_k}
 \]
