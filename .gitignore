@@ -1,6 +1,7 @@
 .DS_Store
 .idea
 .envrc
+.direnv/
 .auctex-auto/
 tmp/
 book.pdf
