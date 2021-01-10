@@ -16,7 +16,7 @@ Or in the vector form:
 \]
 This perceptron can only classify patterns which are /linearly seprable/.
 
-*Theorem 1.* /Suppose $C_1\bigcup C_2=C$ are linearly separable classes over the training set $z\in Z^T$ with the assumption $z_t=\{\vv{x_t}, y_t\in C_1\}$, and perceptron's response $r_t$ with mistake $e_t=y_t-r_t< 0$ can be corrected by applying the learning rule to its current state $\vv{\omega}\in\vv{\Omega}^T$/: 
+*Theorem 1.* /Suppose $C_1\bigcup C_2=C$ are linearly separable classes over the training set $z\in Z^T$ with the assumption $z_t=\{\vv{x_t}, y_t\in C\}$, and perceptron's response $r_t$ with mistake $e_t=y_t-r_t\neq 0$ can be corrected by applying the learning rule to its current state $\vv{\omega}\in\vv{\Omega}^T$/:
 \[
     \vv{\omega_t}=\vv{\omega_{t-1}} + e_t\vv{x_t}
 \]
@@ -37,21 +37,17 @@ Let's do one important step which results will be substituted to the final inequ
 \[
     \norm{\vv{\omega_k}}^2=\norm{\vv{\omega_{k-1}}+e_k\vv{x_k}}^2 = \norm{\vv{\omega_{k-1}}}^2 + e_k^2\norm{\vv{x_k}}^2 + 2e_k\vv{\omega_{k-1}^Tx_k}
 \]
-Since $e_k=y_k-r_k=-2$ ($r_k=-1$ while the target $y_k=1$):
+Since $e_t\neq 0$ there is a misclassification for two possible cases: if for $x_t\in C_1$ the error $e_t>0$, then $sgn(\cdot)<0$; if for $x_t\in C_2$ the error $e_t<0$, then $sgn(\cdot)>0$. Thus, for any misclassification the signs of error and argument of function $sgn$ are always opposite. Therefore, with $e_k\vv{\omega_{k-1}^Tx_k}<0$ there is no doubt that:
 \[
-    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_k}}^2 -4\vv{\omega_{k-1}^Tx_k}
-\]
-There is no doubt that:
-\[
-    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_k}}^2 -4\vv{\omega_{k-1}^Tx_k}\leq\norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_k}}^2
+    \norm{\vv{\omega_{k-1}}}^2 + e_k^2\norm{\vv{x_k}}^2 +2e_k\vv{\omega_{k-1}^Tx_k}\leq\norm{\vv{\omega_{k-1}}}^2 + e_k^2\norm{\vv{x_k}}^2
 \]
 Continuing for $k$ steps we will have:
 \[
-     \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_k}}^2 -4\vv{\omega_{k-1}^Tx_k}\leq2\sum_{j=1}^{k}\norm{\vv{x_j}}^2 
+     \norm{\vv{\omega_{k-1}}}^2 + e_k^2\norm{\vv{x_k}}^2 +2e_k\vv{\omega_{k-1}^Tx_k}\leq e_k^2\sum_{j=1}^{k}\norm{\vv{x_j}}^2
 \]
 Since $\norm{\vv{x_t}}\leq R$:
 \[
-    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_k}}^2 -4\vv{\omega_{k-1}^Tx_k}\leq 2kR^2
+    \norm{\vv{\omega_{k-1}}}^2 + e_k^2\norm{\vv{x_k}}^2 +2e_k\vv{\omega_{k-1}^Tx_k}\leq e_k^2kR^2
 \]
 From /Cauchy-Schwarz inequality/:
 \[
@@ -66,15 +62,20 @@ From /Cauchy-Schwarz inequality/:
 Substitying results obtained earlier:
 \[
     \frac{k^2\gamma^2}{\norm{\omega_*^T}^2}\leq\norm{\vv{\omega_k}}^2=
-    \norm{\vv{\omega_{k-1}}}^2 + 2\norm{\vv{x_k}}^2 -4\vv{\omega_{k-1}^Tx_k}\leq 2kR^2
+    \norm{\vv{\omega_{k-1}}}^2 + e_k^2\norm{\vv{x_k}}^2 +2e_k\vv{\omega_{k-1}^Tx_k}\leq e_k^2kR^2
 \]
 Finally:
 \[
- \frac{k^2\gamma^2}{\norm{\vv{\omega_*^T}}^2}\leq 2kR^2 
+ \frac{k^2\gamma^2}{\norm{\vv{\omega_*^T}}^2}\leq e_k^2kR^2
 \]
 \[
- \frac{k\gamma^2}{\norm{\vv{\omega_*^T}}^2}\leq 2R^2 
+ \frac{k\gamma^2}{\norm{\vv{\omega_*^T}}^2}\leq e_k^2R^2
 \]
+For some finite $\vv{\omega_*^T}$:
 \[
- k\leq \frac{2R^2}{\gamma^2}\norm{\vv{\omega_*^T}}^2 \blacksquare
+ k\leq \frac{e_k^2R^2}{\gamma^2}\norm{\vv{\omega_*^T}}^2 \blacksquare
+\]
+Note, that the error $e_k$ can be only $\pm 2$, thus:
+\[
+ k\leq \frac{4R^2}{\gamma^2}\norm{\vv{\omega_*^T}}^2
 \]
